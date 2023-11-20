@@ -1,0 +1,54 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="MarkCalc"
+run/main_scene="res://Scenes/Main.tscn"
+config/features=PackedStringArray("4.1", "GL Compatibility")
+config/icon="res://icon.svg"
+
+[autoload]
+
+Globals="*res://Scripts/Globals.gd"
+
+[debug]
+
+gdscript/warnings/integer_division=0
+gdscript/warnings/narrowing_conversion=0
+
+[display]
+
+window/size/viewport_width=1080
+window/size/viewport_height=1920
+window/size/window_width_override=450
+window/size/window_height_override=800
+window/energy_saving/keep_screen_on=false
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+window/handheld/orientation=5
+window/ios/hide_home_indicator=false
+window/ios/hide_status_bar=false
+window/ios/suppress_ui_gesture=false
+
+[editor_plugins]
+
+enabled=PackedStringArray()
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
+anti_aliasing/quality/screen_space_aa=1

@@ -1,0 +1,269 @@
+[gd_scene load_steps=16 format=3 uid="uid://u65loiell050"]
+
+[ext_resource type="Script" path="res://Scripts/Main.gd" id="1_id601"]
+[ext_resource type="Theme" uid="uid://drdpainjsputm" path="res://UI/Themes/Header.tres" id="2_iondv"]
+[ext_resource type="Texture2D" uid="uid://ddldk7xccydxy" path="res://UI/Images/trash_bin.png" id="3_e5ut7"]
+[ext_resource type="Theme" uid="uid://bw2rf37mivy1m" path="res://UI/Themes/Regular_Text.tres" id="4_3ihdi"]
+[ext_resource type="StyleBox" uid="uid://dbfjn2ggsfrcc" path="res://UI/Themes/Keyboard_Button.tres" id="5_5rcqu"]
+[ext_resource type="Script" path="res://Scripts/All_Marks_On_Screen.gd" id="5_juiqh"]
+[ext_resource type="StyleBox" uid="uid://iasy8fnn1ilp" path="res://UI/Themes/Keyboard_Button_Pressed.tres" id="6_emm6i"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w5die"]
+bg_color = Color(0.0901961, 0.419608, 0.529412, 1)
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tq404"]
+bg_color = Color(0.0156863, 0.211765, 0.290196, 1)
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="GDScript" id="GDScript_p5rjl"]
+script/source = "extends Control
+
+
+func move_to_the_end():
+	
+	get_parent().move_child(self, get_parent().get_child_count() - 1)
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ir1eo"]
+bg_color = Color(0.0156863, 0.211765, 0.290196, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+
+[sub_resource type="GDScript" id="GDScript_a2g2x"]
+script/source = "extends Keyboard_Button
+"
+
+[sub_resource type="GDScript" id="GDScript_q0pdh"]
+script/source = "extends Keyboard_Button
+"
+
+[sub_resource type="GDScript" id="GDScript_rl2pi"]
+script/source = "extends Keyboard_Button
+"
+
+[sub_resource type="GDScript" id="GDScript_phkcn"]
+script/source = "extends Keyboard_Button
+"
+
+[node name="Main" type="CanvasLayer"]
+script = ExtResource("1_id601")
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = -1
+anchor_right = 0.999963
+anchor_bottom = 0.999854
+offset_right = 0.0400009
+offset_bottom = 0.279999
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="New_Old_Pointer" type="Label" parent="."]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -142.2
+offset_right = 286.0
+offset_bottom = -93.2
+grow_horizontal = 0
+grow_vertical = 2
+rotation = 1.5708
+theme = ExtResource("4_3ihdi")
+theme_override_colors/font_color = Color(0.0156863, 0.211765, 0.290196, 1)
+theme_override_font_sizes/font_size = 40
+text = "<- new | old ->"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Average" type="Panel" parent="."]
+anchors_preset = -1
+anchor_top = 0.05
+anchor_right = 1.0
+anchor_bottom = 0.116833
+offset_bottom = -0.320007
+theme_override_styles/panel = SubResource("StyleBoxFlat_w5die")
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Average"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.219
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.0320015
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_iondv")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 77
+text = "Average mark: -"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Delete_All" type="TextureButton" parent="Average"]
+modulate = Color(0.854902, 1, 0.984314, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.867111
+anchor_top = 0.257438
+anchor_right = 0.981108
+anchor_bottom = 0.951438
+offset_left = -0.480042
+offset_top = 0.0481491
+offset_right = 0.399902
+offset_bottom = -0.00784302
+grow_horizontal = 0
+texture_normal = ExtResource("3_e5ut7")
+ignore_texture_size = true
+stretch_mode = 5
+metadata/_edit_use_anchors_ = true
+
+[node name="Header" type="Panel" parent="."]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.06475
+offset_bottom = -0.320007
+theme_override_styles/panel = SubResource("StyleBoxFlat_tq404")
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Header"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_iondv")
+theme_override_colors/font_color = Color(0.854902, 1, 0.984314, 1)
+theme_override_font_sizes/font_size = 86
+text = "MarkCalc"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="All_Marks_On_Screen" type="ScrollContainer" parent="."]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.116229
+anchor_right = 0.5
+anchor_bottom = 0.929646
+offset_left = -540.0
+offset_top = 0.839996
+offset_right = 540.0
+offset_bottom = 0.0799561
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+script = ExtResource("5_juiqh")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="All_Marks_On_Screen"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
+metadata/_edit_lock_ = true
+
+[node name="Nodes" type="VBoxContainer" parent="All_Marks_On_Screen/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 36
+metadata/_edit_lock_ = true
+
+[node name="Placeholder_Top" type="Control" parent="All_Marks_On_Screen/MarginContainer/Nodes"]
+layout_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="Placeholder_Bottom" type="Control" parent="All_Marks_On_Screen/MarginContainer/Nodes"]
+layout_mode = 2
+script = SubResource("GDScript_p5rjl")
+metadata/_edit_lock_ = true
+
+[node name="Footer" type="Panel" parent="."]
+anchors_preset = -1
+anchor_top = 0.935
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ir1eo")
+metadata/_edit_use_anchors_ = true
+
+[node name="Keyboard" type="MarginContainer" parent="Footer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -540.0
+offset_right = 540.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Buttons" type="HBoxContainer" parent="Footer/Keyboard"]
+layout_mode = 2
+theme_override_constants/separation = 16
+metadata/_edit_lock_ = true
+
+[node name="5" type="Button" parent="Footer/Keyboard/Buttons"]
+custom_minimum_size = Vector2(253, 0)
+layout_mode = 2
+theme = ExtResource("4_3ihdi")
+theme_override_font_sizes/font_size = 90
+theme_override_styles/normal = ExtResource("5_5rcqu")
+theme_override_styles/hover = ExtResource("6_emm6i")
+theme_override_styles/pressed = ExtResource("6_emm6i")
+theme_override_styles/focus = ExtResource("6_emm6i")
+text = "5"
+script = SubResource("GDScript_a2g2x")
+
+[node name="4" type="Button" parent="Footer/Keyboard/Buttons"]
+custom_minimum_size = Vector2(253, 0)
+layout_mode = 2
+theme = ExtResource("4_3ihdi")
+theme_override_font_sizes/font_size = 90
+theme_override_styles/normal = ExtResource("5_5rcqu")
+theme_override_styles/hover = ExtResource("6_emm6i")
+theme_override_styles/pressed = ExtResource("6_emm6i")
+theme_override_styles/focus = ExtResource("6_emm6i")
+text = "4"
+script = SubResource("GDScript_q0pdh")
+
+[node name="3" type="Button" parent="Footer/Keyboard/Buttons"]
+custom_minimum_size = Vector2(253, 0)
+layout_mode = 2
+theme = ExtResource("4_3ihdi")
+theme_override_font_sizes/font_size = 90
+theme_override_styles/normal = ExtResource("5_5rcqu")
+theme_override_styles/hover = ExtResource("6_emm6i")
+theme_override_styles/pressed = ExtResource("6_emm6i")
+theme_override_styles/focus = ExtResource("6_emm6i")
+text = "3"
+script = SubResource("GDScript_rl2pi")
+
+[node name="2" type="Button" parent="Footer/Keyboard/Buttons"]
+custom_minimum_size = Vector2(253, 0)
+layout_mode = 2
+theme = ExtResource("4_3ihdi")
+theme_override_font_sizes/font_size = 90
+theme_override_styles/normal = ExtResource("5_5rcqu")
+theme_override_styles/hover = ExtResource("6_emm6i")
+theme_override_styles/pressed = ExtResource("6_emm6i")
+theme_override_styles/focus = ExtResource("6_emm6i")
+text = "2"
+script = SubResource("GDScript_phkcn")
+
+[connection signal="pressed" from="Average/Delete_All" to="." method="_on_delete_all_pressed"]
+[connection signal="mark_node_deleted" from="All_Marks_On_Screen" to="." method="_on_all_marks_on_screen_mark_node_deleted"]
+[connection signal="keyboard_pressed" from="Footer/Keyboard/Buttons/5" to="." method="_on_keyboard_pressed"]
+[connection signal="keyboard_pressed" from="Footer/Keyboard/Buttons/4" to="." method="_on_keyboard_pressed"]
+[connection signal="keyboard_pressed" from="Footer/Keyboard/Buttons/3" to="." method="_on_keyboard_pressed"]
+[connection signal="keyboard_pressed" from="Footer/Keyboard/Buttons/2" to="." method="_on_keyboard_pressed"]

@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://bw2rf37mivy1m"]
+
+[ext_resource type="FontFile" uid="uid://cn4y5pqx2klm2" path="res://UI/Fonts/Comfortaa-SemiBold.ttf" id="1_qtyho"]
+
+[resource]
+default_font = ExtResource("1_qtyho")
