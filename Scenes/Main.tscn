@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://u65loiell050"]
+[gd_scene load_steps=23 format=3 uid="uid://u65loiell050"]
 
 [ext_resource type="Script" path="res://Scripts/Main.gd" id="1_id601"]
 [ext_resource type="Theme" uid="uid://drdpainjsputm" path="res://UI/Themes/Header.tres" id="2_iondv"]
@@ -6,6 +6,7 @@
 [ext_resource type="Theme" uid="uid://bw2rf37mivy1m" path="res://UI/Themes/Regular_Text.tres" id="4_3ihdi"]
 [ext_resource type="StyleBox" uid="uid://dbfjn2ggsfrcc" path="res://UI/Themes/Keyboard_Button.tres" id="5_5rcqu"]
 [ext_resource type="Script" path="res://Scripts/All_Marks_On_Screen.gd" id="5_juiqh"]
+[ext_resource type="Shader" path="res://UI/Images/Flags/round_corners.gdshader" id="5_nobgr"]
 [ext_resource type="Texture2D" uid="uid://btcnqlj5ur3te" path="res://UI/Images/Flags/GB.png" id="5_vcepg"]
 [ext_resource type="StyleBox" uid="uid://iasy8fnn1ilp" path="res://UI/Themes/Keyboard_Button_Pressed.tres" id="6_emm6i"]
 
@@ -16,6 +17,14 @@ script/source = "extends Label
 func _on_language_reset():
 	
 	text = Localizations.current_language.get(\"New_Old_Pointer\")
+	
+	var new_anchor_offsets: Vector4 = Localizations.current_language.get(\"New_Old_Pointer_Anchor_Offsets\")
+	offset_left = new_anchor_offsets.x
+	offset_top = new_anchor_offsets.y
+	offset_right = new_anchor_offsets.z
+	offset_bottom = new_anchor_offsets.w
+	
+	rotation_degrees = Localizations.current_language.get(\"New_Old_Pointer_Rotation_Degrees\")
 "
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w5die"]
@@ -25,8 +34,12 @@ corner_radius_bottom_left = 32
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tq404"]
 bg_color = Color(0.0156863, 0.211765, 0.290196, 1)
-corner_radius_bottom_right = 32
+corner_radius_bottom_right = 22
 corner_radius_bottom_left = 32
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_csj45"]
+shader = ExtResource("5_nobgr")
+shader_parameter/corner_scale = 0.16
 
 [sub_resource type="GDScript" id="GDScript_m07uq"]
 script/source = "extends TextureButton
@@ -137,17 +150,18 @@ metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
 
 [node name="New_Old_Pointer" type="Label" parent="."]
-anchors_preset = 6
+anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -327.0
-offset_right = 655.0
-offset_bottom = -278.0
+offset_left = -49.0
+offset_top = 328.0
+offset_right = 606.0
+offset_bottom = 377.0
 grow_horizontal = 0
 grow_vertical = 2
-rotation = 1.5708
+rotation = 4.71239
 theme = ExtResource("4_3ihdi")
 theme_override_colors/font_color = Color(0.0156863, 0.211765, 0.290196, 1)
 theme_override_font_sizes/font_size = 40
@@ -185,9 +199,9 @@ vertical_alignment = 1
 modulate = Color(0.854902, 1, 0.984314, 1)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.867111
+anchor_left = 0.863407
 anchor_top = 0.257438
-anchor_right = 0.981108
+anchor_right = 0.977404
 anchor_bottom = 0.951438
 offset_left = -0.480042
 offset_top = 0.0481491
@@ -223,16 +237,17 @@ vertical_alignment = 1
 metadata/_edit_lock_ = true
 
 [node name="Language_Changer" type="TextureButton" parent="Header"]
+material = SubResource("ShaderMaterial_csj45")
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.924
+anchor_left = 0.92
 anchor_top = 0.5
-anchor_right = 0.924
+anchor_right = 0.92
 anchor_bottom = 0.5
-offset_left = -55.92
-offset_top = -37.0
-offset_right = 55.08
-offset_bottom = 37.0
+offset_left = -70.6
+offset_top = -47.0
+offset_right = 71.4
+offset_bottom = 48.0
 grow_horizontal = 0
 texture_normal = ExtResource("5_vcepg")
 ignore_texture_size = true
