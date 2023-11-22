@@ -1,10 +1,9 @@
-ScrollContainer
-SmoothScrollContainer
-TextureButton
 AnimationPlayer
+ColorRect
+TextureButton
+ScrollContainer
 Label
 Panel
-ColorRect
 Button
 MarginContainer
 Control

@@ -1,3 +1,5 @@
 res://Scenes/Main.tscn
 res://UI/Themes/Keyboard_Button.tres
+res://Scripts/Main.gd
 res://Scenes/Mark_Node.tscn
+res://Localizations.gd

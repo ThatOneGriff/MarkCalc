@@ -1,6 +1,7 @@
 extends CanvasLayer
 
-var average: float = 0
+var average: float = 0:
+	set = set_average_text #setting average also automatically sets its text
 var mark_amount: float = 0
 var mark_sum: float = 0
 
@@ -8,9 +9,15 @@ var change_to_average: float
 
 
 
-func set_average_text():
+
+########## SUBFUNCTIONS ##########
+
+
+
+func set_average_text(new_value: float = average):
 	
-	var new_text: String = "Average: "
+	average = new_value
+	var new_text: String = Localizations.current_language.get("Average_Mark")
 	
 	if (average == 0):
 		new_text += "-"
@@ -36,8 +43,6 @@ func _on_all_marks_on_screen_mark_node_deleted(mark_value: int):
 	else:
 		mark_sum -= mark_value
 		average = mark_sum / mark_amount
-	
-	set_average_text()
 
 
 
@@ -65,5 +70,9 @@ func _on_keyboard_pressed(mark_value: int):
 	
 	$All_Marks_On_Screen.add_new_mark(mark_value, change_to_average)
 	average = mark_sum / mark_amount
+
+
+
+func _on_language_reset():
 	
 	set_average_text()
