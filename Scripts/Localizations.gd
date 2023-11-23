@@ -18,7 +18,7 @@ const RU: Dictionary = {"Flag_Path": "res://UI/Images/Flags/Russia.svg",
 						"New_Old_Pointer_Rotation_Degrees": 270,
 						
 						"Average_Mark": "Средний балл: ",
-						"New_Old_Pointer": "<- новые | старые ->"}
+						"New_Old_Pointer": "<- старые | новые ->"} # order is different from English version because the sign is flipped
 
 
 
