@@ -16,7 +16,6 @@ func add_new_mark(mark_value: int, new_change_to_average: float):
 	
 	%Nodes.add_child(new_mark_node)
 	%Nodes.move_child(new_mark_node, 1)
-	%Nodes/Placeholder_Bottom.move_to_the_end()
 
 
 

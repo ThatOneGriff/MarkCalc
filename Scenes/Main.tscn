@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://u65loiell050"]
+[gd_scene load_steps=31 format=3 uid="uid://u65loiell050"]
 
 [ext_resource type="Script" path="res://Scripts/Main.gd" id="1_id601"]
 [ext_resource type="Theme" uid="uid://drdpainjsputm" path="res://UI/Themes/Header.tres" id="2_iondv"]
@@ -6,15 +6,22 @@
 [ext_resource type="Theme" uid="uid://bw2rf37mivy1m" path="res://UI/Themes/Regular_Text.tres" id="4_3ihdi"]
 [ext_resource type="Texture2D" uid="uid://ddldk7xccydxy" path="res://UI/Images/Icons/trash_bin.png" id="4_erkmj"]
 [ext_resource type="StyleBox" uid="uid://dbfjn2ggsfrcc" path="res://UI/Themes/Keyboard_Button.tres" id="5_5rcqu"]
-[ext_resource type="Shader" path="res://Scripts/round_corners.gdshader" id="5_41eh3"]
 [ext_resource type="Script" path="res://Scripts/All_Marks_On_Screen.gd" id="5_juiqh"]
 [ext_resource type="Texture2D" uid="uid://btcnqlj5ur3te" path="res://UI/Images/Flags/GB.png" id="5_vcepg"]
+[ext_resource type="Shader" path="res://Scripts/Round_Corners.gdshader" id="6_16fkp"]
 [ext_resource type="StyleBox" uid="uid://iasy8fnn1ilp" path="res://UI/Themes/Keyboard_Button_Pressed.tres" id="6_emm6i"]
+[ext_resource type="PackedScene" uid="uid://wcqdhslg25ut" path="res://Scenes/Mark_Deleted_Sign.tscn" id="9_fxa0l"]
 [ext_resource type="Script" path="res://Scripts/Save_Button.gd" id="11_vyp5c"]
 [ext_resource type="Script" path="res://Scripts/Load_Button.gd" id="12_4nlkr"]
+[ext_resource type="Script" path="res://Scripts/Keyboard_Button.gd" id="12_5tuhd"]
 
 [sub_resource type="GDScript" id="GDScript_o2o82"]
 script/source = "extends Label
+
+
+
+########## SIGNALS ##########
+
 
 
 func _on_language_reset():
@@ -41,7 +48,7 @@ corner_radius_bottom_right = 22
 corner_radius_bottom_left = 32
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_csj45"]
-shader = ExtResource("5_41eh3")
+shader = ExtResource("6_16fkp")
 shader_parameter/corner_scale = 0.16
 
 [sub_resource type="GDScript" id="GDScript_m07uq"]
@@ -60,35 +67,10 @@ func _on_pressed():
 	texture_normal = load(Localizations.current_language.get(\"Flag_Path\"))
 "
 
-[sub_resource type="GDScript" id="GDScript_p5rjl"]
-script/source = "extends Control
-
-
-func move_to_the_end():
-	
-	get_parent().move_child(self, get_parent().get_child_count() - 1)
-"
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ir1eo"]
 bg_color = Color(0.0156863, 0.211765, 0.290196, 1)
 corner_radius_top_left = 32
 corner_radius_top_right = 32
-
-[sub_resource type="GDScript" id="GDScript_a2g2x"]
-script/source = "extends Keyboard_Button
-"
-
-[sub_resource type="GDScript" id="GDScript_q0pdh"]
-script/source = "extends Keyboard_Button
-"
-
-[sub_resource type="GDScript" id="GDScript_rl2pi"]
-script/source = "extends Keyboard_Button
-"
-
-[sub_resource type="GDScript" id="GDScript_phkcn"]
-script/source = "extends Keyboard_Button
-"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5pbmq"]
 bg_color = Color(0.854902, 1, 0.984314, 1)
@@ -426,9 +408,11 @@ metadata/_edit_lock_ = true
 layout_mode = 2
 metadata/_edit_lock_ = true
 
+[node name="Mark_Deleted_Sign" parent="All_Marks_On_Screen/MarginContainer/Nodes" instance=ExtResource("9_fxa0l")]
+layout_mode = 2
+
 [node name="Placeholder_Bottom" type="Control" parent="All_Marks_On_Screen/MarginContainer/Nodes"]
 layout_mode = 2
-script = SubResource("GDScript_p5rjl")
 metadata/_edit_lock_ = true
 
 [node name="Footer" type="Panel" parent="."]
@@ -471,7 +455,7 @@ theme_override_styles/hover = ExtResource("6_emm6i")
 theme_override_styles/pressed = ExtResource("6_emm6i")
 theme_override_styles/focus = ExtResource("6_emm6i")
 text = "5"
-script = SubResource("GDScript_a2g2x")
+script = ExtResource("12_5tuhd")
 
 [node name="4" type="Button" parent="Footer/Keyboard/Buttons"]
 custom_minimum_size = Vector2(253, 0)
@@ -483,7 +467,7 @@ theme_override_styles/hover = ExtResource("6_emm6i")
 theme_override_styles/pressed = ExtResource("6_emm6i")
 theme_override_styles/focus = ExtResource("6_emm6i")
 text = "4"
-script = SubResource("GDScript_q0pdh")
+script = ExtResource("12_5tuhd")
 
 [node name="3" type="Button" parent="Footer/Keyboard/Buttons"]
 custom_minimum_size = Vector2(253, 0)
@@ -495,7 +479,7 @@ theme_override_styles/hover = ExtResource("6_emm6i")
 theme_override_styles/pressed = ExtResource("6_emm6i")
 theme_override_styles/focus = ExtResource("6_emm6i")
 text = "3"
-script = SubResource("GDScript_rl2pi")
+script = ExtResource("12_5tuhd")
 
 [node name="2" type="Button" parent="Footer/Keyboard/Buttons"]
 custom_minimum_size = Vector2(253, 0)
@@ -507,7 +491,7 @@ theme_override_styles/hover = ExtResource("6_emm6i")
 theme_override_styles/pressed = ExtResource("6_emm6i")
 theme_override_styles/focus = ExtResource("6_emm6i")
 text = "2"
-script = SubResource("GDScript_phkcn")
+script = ExtResource("12_5tuhd")
 
 [node name="Divider" type="Panel" parent="Footer"]
 layout_mode = 1
@@ -577,7 +561,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.635294)
+color = Color(1, 1, 1, 0)
 
 [node name="Tap_Detector" type="Button" parent="Screen_Cover"]
 visible = false

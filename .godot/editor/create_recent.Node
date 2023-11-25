@@ -1,3 +1,4 @@
+Label
 Button
 Panel
 ColorRect
@@ -7,6 +8,5 @@ MarginContainer
 TextureButton
 AnimationPlayer
 ScrollContainer
-Label
 Control
 CanvasLayer

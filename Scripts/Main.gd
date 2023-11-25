@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 var average: float = 0:
-	set = set_average_text #setting average also automatically sets its text
+	set = set_average_text # setting average also automatically sets its text
 var mark_amount: float = 0
 var mark_sum: float = 0
 

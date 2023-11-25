@@ -2,6 +2,10 @@ extends Button
 
 
 
+########## SIGNALS ##########
+
+
+
 func _on_pressed():
 	
 	%AnimationPlayer.play("Darken_Screen")

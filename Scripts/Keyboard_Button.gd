@@ -1,11 +1,8 @@
 extends Button
-class_name Keyboard_Button
 
 signal keyboard_pressed(mark_value: int)
 
 var mark: int
-
-
 
 
 
