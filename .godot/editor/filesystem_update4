@@ -1,10 +1,7 @@
 res://Scenes/Main.tscn
 res://UI/Themes/Keyboard_Button.tres
 res://Scripts/Round_Corners.gdshader
-res://Scripts/Globals.gd
-res://Scripts/List_Of_Marks.gd
 res://Scenes/Mark_Node.tscn
-res://Scripts/Mark_Node.gd
 res://Scenes/Deleted_Mark.tscn
+res://Scripts/List_Of_Marks.gd
 res://Scripts/Deleted_Mark.gd
-res://Scripts/Main.gd

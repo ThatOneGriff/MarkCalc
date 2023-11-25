@@ -1,19 +1,14 @@
 extends Label
 
-var amount: int:
+var amount: int = 1:
 	set = set_amount_text
 
 
 
-func _ready():
+func merge_with(other_deleted_mark):
 	
-	$AnimationPlayer.play("Appear")
-
-
-
-func setup(new_amount: int):
-	
-	amount = new_amount
+	amount = amount + other_deleted_mark.amount
+	other_deleted_mark.queue_free()
 
 
 

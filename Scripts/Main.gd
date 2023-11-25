@@ -24,7 +24,7 @@ func set_average_text(new_value: float = average):
 	else:
 		new_text += str(Globals.round_to_decimal_place(average, 2))
 	
-	$Average/Label.text = new_text
+	$Average/Average_Mark.text = new_text
 
 
 

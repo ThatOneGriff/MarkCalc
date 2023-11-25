@@ -48,6 +48,9 @@ func _on_delete_all_pressed():
 func instantiate_deleted_mark_sign(node):
 	
 	var node_index: int = -1
+	var lower_deleted_mark = null
+	var upper_deleted_mark = null
+	
 	for i in get_child_count():
 		
 		var curr = get_child(i)
@@ -56,7 +59,14 @@ func instantiate_deleted_mark_sign(node):
 			break
 	
 	var new_deleted_mark = deleted_mark.instantiate() as Label
-	new_deleted_mark.setup(1)
+	
+	if node_index - 1 > 0 and get_child(node_index - 1) is Label:
+		upper_deleted_mark = get_child(node_index - 1)
+		new_deleted_mark.merge_with(upper_deleted_mark)
+	
+	if node_index + 1 < get_child_count() and get_child(node_index + 1) is Label:
+		lower_deleted_mark = get_child(node_index + 1)
+		new_deleted_mark.merge_with(lower_deleted_mark)
 	
 	remove_child(get_child(node_index)) # remove_child to quickly replace it
 	

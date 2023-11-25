@@ -249,7 +249,7 @@ offset_bottom = 0.279999
 metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
 
-[node name="New_Old_Pointer" type="Label" parent="."]
+[node name="New_Old" type="Label" parent="."]
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
@@ -297,7 +297,7 @@ texture_normal = ExtResource("3_0jkmr")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="Average"]
+[node name="Average_Mark" type="Label" parent="Average"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.219
@@ -349,11 +349,10 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_iondv")
 theme_override_colors/font_color = Color(0.854902, 1, 0.984314, 1)
-theme_override_font_sizes/font_size = 86
+theme_override_font_sizes/font_size = 90
 text = "MarkCalc"
 horizontal_alignment = 1
 vertical_alignment = 1
-metadata/_edit_lock_ = true
 
 [node name="Language_Changer" type="TextureButton" parent="Header"]
 material = SubResource("ShaderMaterial_csj45")
@@ -579,7 +578,7 @@ libraries = {
 
 [connection signal="pressed" from="Average/Delete_All" to="MarginContainer/Marks_Screen/List_Of_Marks" method="_on_delete_all_pressed"]
 [connection signal="language_reset" from="Header/Language_Changer" to="." method="_on_language_reset"]
-[connection signal="language_reset" from="Header/Language_Changer" to="New_Old_Pointer" method="_on_language_reset"]
+[connection signal="language_reset" from="Header/Language_Changer" to="New_Old" method="_on_language_reset"]
 [connection signal="pressed" from="Header/Language_Changer" to="Header/Language_Changer" method="_on_pressed"]
 [connection signal="mark_node_deleted" from="MarginContainer/Marks_Screen/List_Of_Marks" to="." method="_on_list_of_marks_mark_node_deleted"]
 [connection signal="keyboard_pressed" from="Footer/Keyboard/Buttons/5" to="." method="_on_keyboard_pressed"]
