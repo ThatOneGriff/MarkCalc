@@ -1,13 +1,3 @@
 res://Scenes/Main.tscn
 res://UI/Themes/Keyboard_Button.tres
-res://Scripts/round_corners.gdshader
-res://Scenes/Mark_Node.tscn
 res://Scripts/Round_Corners.gdshader
-res://Scenes/Mark_Deleted_Sign.tscn
-res://Scripts/All_Marks_On_Screen.gd
-res://Scripts/Mark_Deleted_Sign.gd
-res://Scripts/Keyboard_Button.gd
-res://Scripts/Main.gd
-res://Scripts/Load_Button.gd
-res://Scripts/Save_Button.gd
-res://Scripts/Mark_Node.gd

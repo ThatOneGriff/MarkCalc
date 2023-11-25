@@ -32,7 +32,7 @@ func set_average_text(new_value: float = average):
 
 
 
-func _on_all_marks_on_screen_mark_node_deleted(mark_value: int):
+func _on_list_of_marks_mark_node_deleted(mark_value: int):
 	
 	mark_amount -= 1
 	
@@ -68,7 +68,7 @@ func _on_keyboard_pressed(mark_value: int):
 		change_to_average = mark_sum / mark_amount - average
 		change_to_average = Globals.round_to_decimal_place(change_to_average, 2)
 	
-	$All_Marks_On_Screen.add_new_mark(mark_value, change_to_average)
+	%List_Of_Marks.add_new_mark(mark_value, change_to_average)
 	average = mark_sum / mark_amount
 
 

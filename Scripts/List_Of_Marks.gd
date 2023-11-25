@@ -1,4 +1,4 @@
-extends ScrollContainer
+extends VBoxContainer
 
 signal mark_node_deleted(mark_value: int)
 
@@ -14,8 +14,8 @@ func add_new_mark(mark_value: int, new_change_to_average: float):
 	new_mark_node.setup(mark_value, new_change_to_average)
 	new_mark_node.connect("deletion_happened", mark_node_deletion_happened)
 	
-	%Nodes.add_child(new_mark_node)
-	%Nodes.move_child(new_mark_node, 1)
+	add_child(new_mark_node)
+	move_child(new_mark_node, 1)
 
 
 
@@ -25,8 +25,8 @@ func add_new_mark(mark_value: int, new_change_to_average: float):
 
 func mark_node_deletion_happened(mark_value: int, node):
 	
-	for i in %Nodes.get_child_count():
-		var curr = %Nodes.get_child(i)
+	for i in get_child_count():
+		var curr = get_child(i)
 		if curr == node:
 			print(i)
 	

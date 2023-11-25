@@ -6,10 +6,10 @@
 [ext_resource type="Theme" uid="uid://bw2rf37mivy1m" path="res://UI/Themes/Regular_Text.tres" id="4_3ihdi"]
 [ext_resource type="Texture2D" uid="uid://ddldk7xccydxy" path="res://UI/Images/Icons/trash_bin.png" id="4_erkmj"]
 [ext_resource type="StyleBox" uid="uid://dbfjn2ggsfrcc" path="res://UI/Themes/Keyboard_Button.tres" id="5_5rcqu"]
-[ext_resource type="Script" path="res://Scripts/All_Marks_On_Screen.gd" id="5_juiqh"]
 [ext_resource type="Texture2D" uid="uid://btcnqlj5ur3te" path="res://UI/Images/Flags/GB.png" id="5_vcepg"]
 [ext_resource type="Shader" path="res://Scripts/Round_Corners.gdshader" id="6_16fkp"]
 [ext_resource type="StyleBox" uid="uid://iasy8fnn1ilp" path="res://UI/Themes/Keyboard_Button_Pressed.tres" id="6_emm6i"]
+[ext_resource type="Script" path="res://Scripts/List_Of_Marks.gd" id="8_hyi5i"]
 [ext_resource type="PackedScene" uid="uid://wcqdhslg25ut" path="res://Scenes/Mark_Deleted_Sign.tscn" id="9_fxa0l"]
 [ext_resource type="Script" path="res://Scripts/Save_Button.gd" id="11_vyp5c"]
 [ext_resource type="Script" path="res://Scripts/Load_Button.gd" id="12_4nlkr"]
@@ -375,7 +375,7 @@ stretch_mode = 5
 script = SubResource("GDScript_m07uq")
 metadata/_edit_use_anchors_ = true
 
-[node name="All_Marks_On_Screen" type="ScrollContainer" parent="."]
+[node name="Marks_Screen" type="ScrollContainer" parent="."]
 anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.116229
@@ -389,29 +389,29 @@ grow_horizontal = 2
 grow_vertical = 2
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
-script = ExtResource("5_juiqh")
 metadata/_edit_use_anchors_ = true
 
-[node name="MarginContainer" type="MarginContainer" parent="All_Marks_On_Screen"]
+[node name="MarginContainer" type="MarginContainer" parent="Marks_Screen"]
 layout_mode = 2
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_right = 50
 metadata/_edit_lock_ = true
 
-[node name="Nodes" type="VBoxContainer" parent="All_Marks_On_Screen/MarginContainer"]
+[node name="List_Of_Marks" type="VBoxContainer" parent="Marks_Screen/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 36
+script = ExtResource("8_hyi5i")
 metadata/_edit_lock_ = true
 
-[node name="Placeholder_Top" type="Control" parent="All_Marks_On_Screen/MarginContainer/Nodes"]
+[node name="Placeholder_Top" type="Control" parent="Marks_Screen/MarginContainer/List_Of_Marks"]
 layout_mode = 2
 metadata/_edit_lock_ = true
 
-[node name="Mark_Deleted_Sign" parent="All_Marks_On_Screen/MarginContainer/Nodes" instance=ExtResource("9_fxa0l")]
+[node name="Mark_Deleted_Sign" parent="Marks_Screen/MarginContainer/List_Of_Marks" instance=ExtResource("9_fxa0l")]
 layout_mode = 2
 
-[node name="Placeholder_Bottom" type="Control" parent="All_Marks_On_Screen/MarginContainer/Nodes"]
+[node name="Placeholder_Bottom" type="Control" parent="Marks_Screen/MarginContainer/List_Of_Marks"]
 layout_mode = 2
 metadata/_edit_lock_ = true
 
@@ -587,7 +587,7 @@ libraries = {
 [connection signal="language_reset" from="Header/Language_Changer" to="." method="_on_language_reset"]
 [connection signal="language_reset" from="Header/Language_Changer" to="New_Old_Pointer" method="_on_language_reset"]
 [connection signal="pressed" from="Header/Language_Changer" to="Header/Language_Changer" method="_on_pressed"]
-[connection signal="mark_node_deleted" from="All_Marks_On_Screen" to="." method="_on_all_marks_on_screen_mark_node_deleted"]
+[connection signal="mark_node_deleted" from="Marks_Screen/MarginContainer/List_Of_Marks" to="." method="_on_list_of_marks_mark_node_deleted"]
 [connection signal="keyboard_pressed" from="Footer/Keyboard/Buttons/5" to="." method="_on_keyboard_pressed"]
 [connection signal="keyboard_pressed" from="Footer/Keyboard/Buttons/4" to="." method="_on_keyboard_pressed"]
 [connection signal="keyboard_pressed" from="Footer/Keyboard/Buttons/3" to="." method="_on_keyboard_pressed"]
