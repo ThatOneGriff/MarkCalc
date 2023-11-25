@@ -1,5 +1,4 @@
 res://Scenes/Main.tscn
 res://UI/Themes/Keyboard_Button.tres
-res://Scripts/Localizations.gd
+res://Scripts/round_corners.gdshader
 res://Scenes/Mark_Node.tscn
-res://UI/Images/Flags/round_corners.gdshader

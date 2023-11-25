@@ -1,9 +1,10 @@
-[gd_scene load_steps=23 format=3 uid="uid://u65loiell050"]
+[gd_scene load_steps=25 format=3 uid="uid://u65loiell050"]
 
 [ext_resource type="Script" path="res://Scripts/Main.gd" id="1_id601"]
 [ext_resource type="Theme" uid="uid://drdpainjsputm" path="res://UI/Themes/Header.tres" id="2_iondv"]
-[ext_resource type="Texture2D" uid="uid://ddldk7xccydxy" path="res://UI/Images/trash_bin.png" id="3_e5ut7"]
+[ext_resource type="Texture2D" uid="uid://c25br6ot5ex6t" path="res://UI/Images/Icons/folder.png" id="3_0jkmr"]
 [ext_resource type="Theme" uid="uid://bw2rf37mivy1m" path="res://UI/Themes/Regular_Text.tres" id="4_3ihdi"]
+[ext_resource type="Texture2D" uid="uid://ddldk7xccydxy" path="res://UI/Images/Icons/trash_bin.png" id="4_erkmj"]
 [ext_resource type="StyleBox" uid="uid://dbfjn2ggsfrcc" path="res://UI/Themes/Keyboard_Button.tres" id="5_5rcqu"]
 [ext_resource type="Shader" path="res://Scripts/round_corners.gdshader" id="5_41eh3"]
 [ext_resource type="Script" path="res://Scripts/All_Marks_On_Screen.gd" id="5_juiqh"]
@@ -26,6 +27,10 @@ func _on_language_reset():
 	
 	rotation_degrees = Localizations.current_language.get(\"New_Old_Pointer_Rotation_Degrees\")
 "
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rox21"]
+bg_color = Color(0.854902, 1, 0.984314, 1)
+corner_radius_bottom_right = 32
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w5die"]
 bg_color = Color(0.0901961, 0.419608, 0.529412, 1)
@@ -170,6 +175,27 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = SubResource("GDScript_o2o82")
 
+[node name="File_Dropdown" type="Panel" parent="."]
+anchors_preset = -1
+anchor_top = 0.103
+anchor_right = 0.138852
+anchor_bottom = 0.150604
+offset_top = -0.76001
+offset_right = 0.0400009
+offset_bottom = 0.839996
+theme_override_styles/panel = SubResource("StyleBoxFlat_rox21")
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="File_Dropdown"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.290323
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
 [node name="Average" type="Panel" parent="."]
 anchors_preset = -1
 anchor_top = 0.05
@@ -178,6 +204,23 @@ anchor_bottom = 0.116833
 offset_bottom = -0.320007
 theme_override_styles/panel = SubResource("StyleBoxFlat_w5die")
 metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Save_Load" type="TextureButton" parent="Average"]
+modulate = Color(0.854902, 1, 0.984314, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.023
+anchor_top = 0.218
+anchor_right = 0.116
+anchor_bottom = 1.0
+offset_left = 0.16
+offset_top = 0.0961399
+offset_right = -0.280006
+offset_bottom = 0.000640869
+texture_normal = ExtResource("3_0jkmr")
+ignore_texture_size = true
+stretch_mode = 5
 
 [node name="Label" type="Label" parent="Average"]
 layout_mode = 1
@@ -194,21 +237,22 @@ theme_override_font_sizes/font_size = 77
 text = "Average mark: -"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="Delete_All" type="TextureButton" parent="Average"]
 modulate = Color(0.854902, 1, 0.984314, 1)
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.863407
-anchor_top = 0.257438
-anchor_right = 0.977404
-anchor_bottom = 0.951438
+anchor_top = 0.218375
+anchor_right = 0.977408
+anchor_bottom = 0.968816
 offset_left = -0.480042
 offset_top = 0.0481491
 offset_right = 0.399902
 offset_bottom = -0.00784302
 grow_horizontal = 0
-texture_normal = ExtResource("3_e5ut7")
+texture_normal = ExtResource("4_erkmj")
 ignore_texture_size = true
 stretch_mode = 5
 metadata/_edit_use_anchors_ = true
@@ -220,6 +264,7 @@ anchor_bottom = 0.06475
 offset_bottom = -0.320007
 theme_override_styles/panel = SubResource("StyleBoxFlat_tq404")
 metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
 
 [node name="Label" type="Label" parent="Header"]
 layout_mode = 1
