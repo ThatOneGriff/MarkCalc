@@ -1,6 +1,6 @@
 extends Panel
 
-signal deletion_happened(mark_value: int)
+signal deletion_happened(mark_value: int, node)
 
 
 
@@ -14,7 +14,7 @@ func setup(new_mark: int, new_change_to_average: float):
 
 func delete():
 	
-	deletion_happened.emit(int(%Mark.text))
+	deletion_happened.emit(int(%Mark.text), self)
 	$AnimationPlayer.play("Disappear")
 
 

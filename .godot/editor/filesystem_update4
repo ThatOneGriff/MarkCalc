@@ -10,3 +10,4 @@ res://Scripts/Keyboard_Button.gd
 res://Scripts/Main.gd
 res://Scripts/Load_Button.gd
 res://Scripts/Save_Button.gd
+res://Scripts/Mark_Node.gd

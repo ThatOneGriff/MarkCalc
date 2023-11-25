@@ -23,6 +23,11 @@ func add_new_mark(mark_value: int, new_change_to_average: float):
 
 
 
-func mark_node_deletion_happened(mark_value: int):
+func mark_node_deletion_happened(mark_value: int, node):
+	
+	for i in %Nodes.get_child_count():
+		var curr = %Nodes.get_child(i)
+		if curr == node:
+			print(i)
 	
 	mark_node_deleted.emit(mark_value)
