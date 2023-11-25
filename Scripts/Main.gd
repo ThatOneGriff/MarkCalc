@@ -46,17 +46,6 @@ func _on_list_of_marks_mark_node_deleted(mark_value: int):
 
 
 
-func _on_delete_all_pressed():
-	
-	for curr_mark in $All_Marks_On_Screen/MarginContainer/Nodes.get_children():
-		
-		if ! (curr_mark is Panel):
-			continue
-		
-		curr_mark.delete()
-
-
-
 func _on_keyboard_pressed(mark_value: int):
 	
 	mark_amount += 1

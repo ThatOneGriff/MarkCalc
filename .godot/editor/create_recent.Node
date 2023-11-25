@@ -1,3 +1,4 @@
+AnimationPlayer
 Label
 Button
 Panel
@@ -6,7 +7,6 @@ HBoxContainer
 VBoxContainer
 MarginContainer
 TextureButton
-AnimationPlayer
 ScrollContainer
 Control
 CanvasLayer

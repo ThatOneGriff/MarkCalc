@@ -3,6 +3,7 @@ extends VBoxContainer
 signal mark_node_deleted(mark_value: int)
 
 var mark_node: PackedScene = preload("res://Scenes/Mark_Node.tscn")
+var deleted_mark: PackedScene = preload("res://Scenes/Deleted_Mark.tscn")
 var tween: Tween
 
 
@@ -25,9 +26,41 @@ func add_new_mark(mark_value: int, new_change_to_average: float):
 
 func mark_node_deletion_happened(mark_value: int, node):
 	
+	mark_node_deleted.emit(mark_value)
+	instantiate_deleted_mark_sign(node)
+
+
+
+func _on_delete_all_pressed():
+	
+	for curr in get_children():
+		
+		if ! (curr is Panel):
+			continue
+		curr.delete()
+
+
+
+####### SUBFUNCTIONS #######
+
+
+
+func instantiate_deleted_mark_sign(node):
+	
+	var node_index: int = -1
 	for i in get_child_count():
+		
 		var curr = get_child(i)
 		if curr == node:
-			print(i)
+			node_index = i
+			break
 	
-	mark_node_deleted.emit(mark_value)
+	var new_deleted_mark = deleted_mark.instantiate() as Label
+	new_deleted_mark.setup(1)
+	
+	remove_child(get_child(node_index)) # remove_child to quickly replace it
+	
+	add_child(new_deleted_mark)
+	move_child(new_deleted_mark, node_index)
+	
+	node.queue_free()

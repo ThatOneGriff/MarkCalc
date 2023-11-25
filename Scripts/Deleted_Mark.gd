@@ -5,6 +5,18 @@ var amount: int:
 
 
 
+func _ready():
+	
+	$AnimationPlayer.play("Appear")
+
+
+
+func setup(new_amount: int):
+	
+	amount = new_amount
+
+
+
 ########## SUBFUNCTIONS ##########
 
 

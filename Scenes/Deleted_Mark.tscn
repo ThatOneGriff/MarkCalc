@@ -1,0 +1,61 @@
+[gd_scene load_steps=5 format=3 uid="uid://wcqdhslg25ut"]
+
+[ext_resource type="Theme" uid="uid://bw2rf37mivy1m" path="res://UI/Themes/Regular_Text.tres" id="1_dwhcu"]
+[ext_resource type="Script" path="res://Scripts/Deleted_Mark.gd" id="2_4wiiv"]
+
+[sub_resource type="Animation" id="Animation_gqct5"]
+resource_name = "Appear"
+length = 0.15
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:custom_minimum_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(980, 153), Vector2(980, 110)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u23p6"]
+_data = {
+"Appear": SubResource("Animation_gqct5")
+}
+
+[node name="Deleted_Mark" type="Label"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(980, 153)
+anchors_preset = -1
+anchor_right = 0.907
+anchor_bottom = 0.08
+offset_right = 0.440002
+offset_bottom = -0.599991
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_dwhcu")
+theme_override_colors/font_color = Color(0.0156863, 0.211765, 0.290196, 1)
+theme_override_font_sizes/font_size = 77
+text = "= x marks deleted ="
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_4wiiv")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_u23p6")
+}
