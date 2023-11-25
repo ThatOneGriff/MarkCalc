@@ -1,12 +1,12 @@
-VBoxContainer
+Button
 Panel
+ColorRect
+HBoxContainer
+VBoxContainer
+MarginContainer
 TextureButton
 AnimationPlayer
-ColorRect
 ScrollContainer
 Label
-Button
-MarginContainer
 Control
-HBoxContainer
 CanvasLayer

@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://u65loiell050"]
+[gd_scene load_steps=34 format=3 uid="uid://u65loiell050"]
 
 [ext_resource type="Script" path="res://Scripts/Main.gd" id="1_id601"]
 [ext_resource type="Theme" uid="uid://drdpainjsputm" path="res://UI/Themes/Header.tres" id="2_iondv"]
@@ -10,6 +10,8 @@
 [ext_resource type="Script" path="res://Scripts/All_Marks_On_Screen.gd" id="5_juiqh"]
 [ext_resource type="Texture2D" uid="uid://btcnqlj5ur3te" path="res://UI/Images/Flags/GB.png" id="5_vcepg"]
 [ext_resource type="StyleBox" uid="uid://iasy8fnn1ilp" path="res://UI/Themes/Keyboard_Button_Pressed.tres" id="6_emm6i"]
+[ext_resource type="Script" path="res://Scripts/Save_Button.gd" id="11_vyp5c"]
+[ext_resource type="Script" path="res://Scripts/Load_Button.gd" id="12_4nlkr"]
 
 [sub_resource type="GDScript" id="GDScript_o2o82"]
 script/source = "extends Label
@@ -27,10 +29,6 @@ func _on_language_reset():
 	
 	rotation_degrees = Localizations.current_language.get(\"New_Old_Pointer_Rotation_Degrees\")
 "
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rox21"]
-bg_color = Color(0.854902, 1, 0.984314, 1)
-corner_radius_bottom_right = 32
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w5die"]
 bg_color = Color(0.0901961, 0.419608, 0.529412, 1)
@@ -92,6 +90,30 @@ script/source = "extends Keyboard_Button
 script/source = "extends Keyboard_Button
 "
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5pbmq"]
+bg_color = Color(0.854902, 1, 0.984314, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uv4ic"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yb5mr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mbe6q"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r5j2i"]
+
+[sub_resource type="GDScript" id="GDScript_ghwu3"]
+script/source = "extends Button
+
+
+func _on_pressed():
+	
+	%AnimationPlayer.play(\"Undarken_Screen\")
+"
+
 [sub_resource type="Animation" id="Animation_dd3pc"]
 resource_name = "Blink_Screen"
 length = 0.3
@@ -137,9 +159,101 @@ tracks/2/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_ok1bn"]
+resource_name = "Darken_Screen"
+length = 0.15
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Screen_Cover:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(0, 0, 0, 0.635294)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Screen_Cover")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"show"
+}]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Screen_Cover/Tap_Detector")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"show"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_i0jr3"]
+resource_name = "Undarken_Screen"
+length = 0.15
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Screen_Cover:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0.635294), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Screen_Cover")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.15),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"hide"
+}]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Screen_Cover/Tap_Detector")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.15),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"hide"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cfdp2"]
 _data = {
-"Blink_Screen": SubResource("Animation_dd3pc")
+"Blink_Screen": SubResource("Animation_dd3pc"),
+"Darken_Screen": SubResource("Animation_ok1bn"),
+"Undarken_Screen": SubResource("Animation_i0jr3")
 }
 
 [node name="Main" type="CanvasLayer"]
@@ -175,27 +289,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = SubResource("GDScript_o2o82")
 
-[node name="File_Dropdown" type="Panel" parent="."]
-anchors_preset = -1
-anchor_top = 0.103
-anchor_right = 0.138852
-anchor_bottom = 0.150604
-offset_top = -0.76001
-offset_right = 0.0400009
-offset_bottom = 0.839996
-theme_override_styles/panel = SubResource("StyleBoxFlat_rox21")
-metadata/_edit_use_anchors_ = true
-
-[node name="VBoxContainer" type="VBoxContainer" parent="File_Dropdown"]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.290323
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_use_anchors_ = true
-
 [node name="Average" type="Panel" parent="."]
 anchors_preset = -1
 anchor_top = 0.05
@@ -207,6 +300,7 @@ metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
 
 [node name="Save_Load" type="TextureButton" parent="Average"]
+visible = false
 modulate = Color(0.854902, 1, 0.984314, 1)
 layout_mode = 1
 anchors_preset = -1
@@ -237,7 +331,6 @@ theme_override_font_sizes/font_size = 77
 text = "Average mark: -"
 horizontal_alignment = 1
 vertical_alignment = 1
-metadata/_edit_lock_ = true
 
 [node name="Delete_All" type="TextureButton" parent="Average"]
 modulate = Color(0.854902, 1, 0.984314, 1)
@@ -266,7 +359,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_tq404")
 metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
 
-[node name="Label" type="Label" parent="Header"]
+[node name="MarkCalc" type="Label" parent="Header"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -305,7 +398,7 @@ anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.116229
 anchor_right = 0.5
-anchor_bottom = 0.929646
+anchor_bottom = 0.873396
 offset_left = -540.0
 offset_top = 0.839996
 offset_right = 540.0
@@ -316,7 +409,6 @@ horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
 script = ExtResource("5_juiqh")
 metadata/_edit_use_anchors_ = true
-metadata/_edit_lock_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="All_Marks_On_Screen"]
 layout_mode = 2
@@ -341,7 +433,7 @@ metadata/_edit_lock_ = true
 
 [node name="Footer" type="Panel" parent="."]
 anchors_preset = -1
-anchor_top = 0.935
+anchor_top = 0.873438
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
@@ -354,7 +446,7 @@ layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
+anchor_bottom = 0.5
 offset_left = -540.0
 offset_right = 540.0
 grow_horizontal = 2
@@ -417,6 +509,67 @@ theme_override_styles/focus = ExtResource("6_emm6i")
 text = "2"
 script = SubResource("GDScript_phkcn")
 
+[node name="Divider" type="Panel" parent="Footer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.493827
+anchor_right = 0.5
+anchor_bottom = 0.51
+offset_left = -530.0
+offset_right = 530.0
+offset_bottom = 0.0699844
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5pbmq")
+metadata/_edit_lock_ = true
+
+[node name="Save_Load" type="MarginContainer" parent="Footer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -540.0
+offset_right = 540.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+metadata/_edit_use_anchors_ = true
+
+[node name="Buttons" type="HBoxContainer" parent="Footer/Save_Load"]
+layout_mode = 2
+theme_override_constants/separation = 16
+metadata/_edit_lock_ = true
+
+[node name="Save" type="Button" parent="Footer/Save_Load/Buttons"]
+custom_minimum_size = Vector2(522, 0)
+layout_mode = 2
+theme = ExtResource("4_3ihdi")
+theme_override_font_sizes/font_size = 77
+theme_override_styles/normal = ExtResource("5_5rcqu")
+theme_override_styles/hover = ExtResource("6_emm6i")
+theme_override_styles/pressed = ExtResource("6_emm6i")
+theme_override_styles/focus = ExtResource("6_emm6i")
+text = "Save"
+script = ExtResource("11_vyp5c")
+
+[node name="Load" type="Button" parent="Footer/Save_Load/Buttons"]
+custom_minimum_size = Vector2(522, 0)
+layout_mode = 2
+theme = ExtResource("4_3ihdi")
+theme_override_font_sizes/font_size = 77
+theme_override_styles/normal = ExtResource("5_5rcqu")
+theme_override_styles/hover = ExtResource("6_emm6i")
+theme_override_styles/pressed = ExtResource("6_emm6i")
+theme_override_styles/focus = ExtResource("6_emm6i")
+text = "Load"
+script = ExtResource("12_4nlkr")
+
 [node name="Screen_Cover" type="ColorRect" parent="."]
 visible = false
 anchors_preset = 15
@@ -424,7 +577,21 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 1, 1, 0)
+color = Color(0, 0, 0, 0.635294)
+
+[node name="Tap_Detector" type="Button" parent="Screen_Cover"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_uv4ic")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_yb5mr")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_mbe6q")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_r5j2i")
+script = SubResource("GDScript_ghwu3")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
@@ -441,3 +608,8 @@ libraries = {
 [connection signal="keyboard_pressed" from="Footer/Keyboard/Buttons/4" to="." method="_on_keyboard_pressed"]
 [connection signal="keyboard_pressed" from="Footer/Keyboard/Buttons/3" to="." method="_on_keyboard_pressed"]
 [connection signal="keyboard_pressed" from="Footer/Keyboard/Buttons/2" to="." method="_on_keyboard_pressed"]
+[connection signal="button_up" from="Footer/Save_Load/Buttons/Save" to="Footer/Save_Load/Buttons/Save" method="_on_unpressed"]
+[connection signal="pressed" from="Footer/Save_Load/Buttons/Save" to="Footer/Save_Load/Buttons/Save" method="_on_pressed"]
+[connection signal="button_up" from="Footer/Save_Load/Buttons/Load" to="Footer/Save_Load/Buttons/Load" method="_on_unpressed"]
+[connection signal="pressed" from="Footer/Save_Load/Buttons/Load" to="Footer/Save_Load/Buttons/Load" method="_on_pressed"]
+[connection signal="pressed" from="Screen_Cover/Tap_Detector" to="Screen_Cover/Tap_Detector" method="_on_pressed"]

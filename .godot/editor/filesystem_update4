@@ -2,3 +2,5 @@ res://Scenes/Main.tscn
 res://UI/Themes/Keyboard_Button.tres
 res://Scripts/round_corners.gdshader
 res://Scenes/Mark_Node.tscn
+res://Scripts/Load_Button.gd
+res://Scripts/Save_Button.gd
