@@ -4,7 +4,6 @@ signal mark_node_deleted(mark_value: int)
 
 var mark_node: PackedScene = preload("res://Scenes/Mark_Node.tscn")
 var deleted_mark: PackedScene = preload("res://Scenes/Deleted_Mark.tscn")
-var tween: Tween
 
 
 
@@ -33,12 +32,36 @@ func mark_node_deletion_happened(mark_value: int, node):
 
 func _on_delete_all_pressed():
 	
+	%AnimationPlayer.play("Blink_Screen")
+	await get_tree().create_timer(.1).timeout # so everything happens while screen is whited out
+	
+	var deleted_mark_counter: int = 0
+	
 	for curr in get_children():
 		
-		if ! (curr is Panel):
-			continue
-		curr.delete()
+		if (curr is Panel):
+			deleted_mark_counter += 1
+			curr.queue_free()
+		elif (curr is Label):
+			deleted_mark_counter += curr.amount
+			curr.queue_free()
+	
+	if deleted_mark_counter == 0:
+		return
+	
+	var new_deleted_mark = deleted_mark.instantiate() as Label
+	new_deleted_mark.amount = deleted_mark_counter
+	add_child(new_deleted_mark)
+	move_child(new_deleted_mark, 1)
 
+
+
+func _on_language_reset():
+	
+	for curr in get_children():
+		if ! (curr is Label):
+			continue
+		curr.localize_text()
 
 
 ####### SUBFUNCTIONS #######
@@ -48,8 +71,6 @@ func _on_delete_all_pressed():
 func instantiate_deleted_mark_sign(node):
 	
 	var node_index: int = -1
-	var lower_deleted_mark = null
-	var upper_deleted_mark = null
 	
 	for i in get_child_count():
 		
@@ -61,16 +82,14 @@ func instantiate_deleted_mark_sign(node):
 	var new_deleted_mark = deleted_mark.instantiate() as Label
 	
 	if node_index - 1 > 0 and get_child(node_index - 1) is Label:
-		upper_deleted_mark = get_child(node_index - 1)
-		new_deleted_mark.merge_with(upper_deleted_mark)
+		new_deleted_mark.merge_with(get_child(node_index - 1))
 	
 	if node_index + 1 < get_child_count() and get_child(node_index + 1) is Label:
-		lower_deleted_mark = get_child(node_index + 1)
-		new_deleted_mark.merge_with(lower_deleted_mark)
+		new_deleted_mark.merge_with(get_child(node_index + 1))
 	
-	remove_child(get_child(node_index)) # remove_child to quickly replace it
+	remove_child(get_child(node_index)) # 'remove_child()' to quickly replace 'node'
 	
 	add_child(new_deleted_mark)
 	move_child(new_deleted_mark, node_index)
 	
-	node.queue_free()
+	node.queue_free() # and then delete 'node' from memory

@@ -15,8 +15,6 @@ func setup(new_mark: int, new_change_to_average: float):
 func delete():
 	
 	$AnimationPlayer.play("Disappear")
-	
-	await get_tree().create_timer($AnimationPlayer.current_animation_length).timeout
 	deletion_happened.emit(int(%Mark.text), self)
 
 

@@ -93,7 +93,7 @@ _data = {
 }
 
 [node name="Mark_Node" type="Panel"]
-custom_minimum_size = Vector2(980, 153)
+custom_minimum_size = Vector2(980, 0)
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 0.0796875
@@ -123,7 +123,7 @@ unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("1_ygc35")
 theme_override_colors/font_color = Color(0.0156863, 0.211765, 0.290196, 1)
-theme_override_font_sizes/font_size = 128
+theme_override_font_sizes/font_size = 1
 text = "5"
 horizontal_alignment = 1
 vertical_alignment = 2
@@ -133,11 +133,11 @@ unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("1_ygc35")
 theme_override_colors/font_color = Color(0.129412, 0.74902, 0.45098, 1)
-theme_override_font_sizes/font_size = 128
+theme_override_font_sizes/font_size = 1
 text = "+X.Y"
 
 [node name="Delete" type="TextureButton" parent="."]
-modulate = Color(0.0156863, 0.211765, 0.290196, 1)
+modulate = Color(0.0156863, 0.211765, 0.290196, 0)
 layout_mode = 2
 anchor_left = 0.879
 anchor_right = 0.968

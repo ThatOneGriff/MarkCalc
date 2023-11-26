@@ -1,10 +1,88 @@
-[gd_scene load_steps=3 format=3 uid="uid://wcqdhslg25ut"]
+[gd_scene load_steps=6 format=3 uid="uid://wcqdhslg25ut"]
 
 [ext_resource type="Theme" uid="uid://bw2rf37mivy1m" path="res://UI/Themes/Regular_Text.tres" id="1_dwhcu"]
 [ext_resource type="Script" path="res://Scripts/Deleted_Mark.gd" id="2_4wiiv"]
 
+[sub_resource type="Animation" id="Animation_o22a2"]
+resource_name = "Appear"
+length = 0.15
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_piubb"]
+resource_name = "Disappear"
+length = 0.15
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.0156863, 0.211765, 0.290196, 1), Color(0.0156863, 0.211765, 0.290196, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:custom_minimum_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(980, 153), Vector2(980, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:theme_override_font_sizes/font_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [77, 1]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.15),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eyv6r"]
+_data = {
+"Appear": SubResource("Animation_o22a2"),
+"Disappear": SubResource("Animation_piubb")
+}
+
 [node name="Deleted_Mark" type="Label"]
-custom_minimum_size = Vector2(980, 110)
+custom_minimum_size = Vector2(980, 153)
 anchors_preset = -1
 anchor_right = 0.907
 anchor_bottom = 0.08
@@ -15,7 +93,12 @@ grow_vertical = 2
 theme = ExtResource("1_dwhcu")
 theme_override_colors/font_color = Color(0.0156863, 0.211765, 0.290196, 1)
 theme_override_font_sizes/font_size = 77
-text = "= 1 mark(s) deleted ="
+text = "= 1 mark deleted ="
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("2_4wiiv")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_eyv6r")
+}
