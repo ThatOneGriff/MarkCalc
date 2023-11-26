@@ -61,7 +61,7 @@ func _on_pressed():
 	Localizations.current_language_id += 1
 	%AnimationPlayer.play(\"Blink_Screen\")
 	
-	await get_tree().create_timer(%AnimationPlayer.current_animation_length / 2).timeout # so everything changes while screen is covered
+	await get_tree().create_timer(.1).timeout # so everything changes while screen is covered. WARNING: change it in case you change the time position of blink in the animation!!!!!!!
 	language_reset.emit()
 	texture_normal = load(Localizations.current_language.get(\"Flag_Path\"))
 "

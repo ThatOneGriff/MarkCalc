@@ -33,7 +33,7 @@ func mark_node_deletion_happened(mark_value: int, node):
 func _on_delete_all_pressed():
 	
 	%AnimationPlayer.play("Blink_Screen")
-	await get_tree().create_timer(.1).timeout # so everything happens while screen is whited out
+	await get_tree().create_timer(.1).timeout # so everything happens while screen is whited out. WARNING: change it in case you change the time position of blink in the animation!!!!!!!
 	
 	var deleted_mark_counter: int = 0
 	
