@@ -2,11 +2,14 @@ extends Panel
 
 signal deletion_happened(mark_value: int, node)
 
+var value: int:
+	set = set_mark_value
 
 
-func setup(new_mark: int, new_change_to_average: float):
+
+func setup(new_value: int, new_change_to_average: float):
 	
-	%Mark.text = str(new_mark)
+	value = new_value
 	change_to_average_set_text(new_change_to_average)
 	$AnimationPlayer.play("Appear")
 
@@ -15,7 +18,7 @@ func setup(new_mark: int, new_change_to_average: float):
 func delete():
 	
 	$AnimationPlayer.play("Disappear")
-	deletion_happened.emit(int(%Mark.text), self)
+	deletion_happened.emit(value, self)
 
 
 
@@ -40,3 +43,10 @@ func change_to_average_set_text(new_change_to_average: float):
 	
 	%Change_To_Average.add_theme_color_override("font_color", new_color)
 	%Change_To_Average.text = new_text
+
+
+
+func set_mark_value(new_value: int):
+	
+	value = new_value
+	%Mark.text = str(new_value)

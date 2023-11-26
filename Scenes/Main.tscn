@@ -582,6 +582,7 @@ libraries = {
 [connection signal="language_reset" from="Header/Language_Changer" to="MarginContainer/Marks_Screen/List_Of_Marks" method="_on_language_reset"]
 [connection signal="pressed" from="Header/Language_Changer" to="Header/Language_Changer" method="_on_pressed"]
 [connection signal="mark_node_deleted" from="MarginContainer/Marks_Screen/List_Of_Marks" to="." method="_on_list_of_marks_mark_node_deleted"]
+[connection signal="reset_main_values" from="MarginContainer/Marks_Screen/List_Of_Marks" to="." method="reset"]
 [connection signal="keyboard_pressed" from="Footer/Keyboard/Buttons/5" to="." method="_on_keyboard_pressed"]
 [connection signal="keyboard_pressed" from="Footer/Keyboard/Buttons/4" to="." method="_on_keyboard_pressed"]
 [connection signal="keyboard_pressed" from="Footer/Keyboard/Buttons/3" to="." method="_on_keyboard_pressed"]

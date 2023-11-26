@@ -9,6 +9,13 @@ var change_to_average: float
 
 
 
+func reset():
+	
+	average = 0
+	mark_amount = 0
+	mark_sum = 0
+
+
 
 ########## SUBFUNCTIONS ##########
 
@@ -59,8 +66,7 @@ func _on_list_of_marks_mark_node_deleted(mark_value: int):
 	mark_amount -= 1
 	
 	if mark_amount == 0: # no marks left
-		average = 0
-		mark_sum = 0
+		reset()
 	
 	else:
 		mark_sum -= mark_value

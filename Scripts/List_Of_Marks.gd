@@ -1,6 +1,7 @@
 extends VBoxContainer
 
 signal mark_node_deleted(mark_value: int)
+signal reset_main_values
 
 var mark_node: PackedScene = preload("res://Scenes/Mark_Node.tscn")
 var deleted_mark: PackedScene = preload("res://Scenes/Deleted_Mark.tscn")
@@ -35,6 +36,7 @@ func _on_delete_all_pressed():
 	%AnimationPlayer.play("Blink_Screen")
 	await get_tree().create_timer(.1).timeout # so everything happens while screen is whited out. WARNING: change it in case you change the time position of blink in the animation!!!!!!!
 	
+	reset_main_values.emit()
 	var deleted_mark_counter: int = 0
 	
 	for curr in get_children():
