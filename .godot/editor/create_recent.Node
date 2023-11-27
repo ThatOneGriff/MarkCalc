@@ -1,12 +1,13 @@
 AnimationPlayer
-ColorRect
-Label
+TextureRect
+MarginContainer
 Button
 Panel
-HBoxContainer
 VBoxContainer
-MarginContainer
 TextureButton
+ColorRect
+Label
+HBoxContainer
 ScrollContainer
 Control
 CanvasLayer

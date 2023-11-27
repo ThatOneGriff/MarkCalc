@@ -1,0 +1,130 @@
+[gd_scene load_steps=10 format=3 uid="uid://cgviwr8tstb37"]
+
+[ext_resource type="Script" path="res://Scripts/Save_Load_Menu.gd" id="1_kuceb"]
+[ext_resource type="Theme" uid="uid://drdpainjsputm" path="res://UI/Themes/Header.tres" id="1_p3qp7"]
+[ext_resource type="StyleBox" uid="uid://dgcus38h3eu56" path="res://UI/Themes/Menu_Button.tres" id="2_lntn7"]
+[ext_resource type="StyleBox" uid="uid://ddrbs1eq66sa6" path="res://UI/Themes/Menu_Button_Pressed.tres" id="3_3a2hk"]
+[ext_resource type="Texture2D" uid="uid://d2o4ycty6jvj6" path="res://UI/Images/Icons/save.png" id="3_sl8ej"]
+[ext_resource type="Script" path="res://Scripts/Menu_Button.gd" id="4_iyd62"]
+[ext_resource type="Texture2D" uid="uid://bf227bubj8fui" path="res://UI/Images/Icons/open.png" id="4_tp516"]
+[ext_resource type="Texture2D" uid="uid://bfevgjbjbk105" path="res://UI/Images/Icons/cancel.png" id="5_uwh4c"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qgtx0"]
+bg_color = Color(0.854902, 1, 0.984314, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.0156863, 0.211765, 0.290196, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[node name="Save_Load_Menu" type="Panel"]
+custom_minimum_size = Vector2(864, 480)
+anchors_preset = -1
+anchor_right = 0.8
+anchor_bottom = 0.25
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qgtx0")
+script = ExtResource("1_kuceb")
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Buttons" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Save" type="Button" parent="MarginContainer/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 140)
+layout_mode = 2
+theme = ExtResource("1_p3qp7")
+theme_override_colors/font_color = Color(0.854902, 1, 0.984314, 1)
+theme_override_font_sizes/font_size = 90
+theme_override_styles/normal = ExtResource("2_lntn7")
+theme_override_styles/hover = ExtResource("3_3a2hk")
+theme_override_styles/pressed = ExtResource("3_3a2hk")
+theme_override_styles/focus = ExtResource("3_3a2hk")
+text = "  Save"
+script = ExtResource("4_iyd62")
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/Buttons/Save"]
+layout_mode = 2
+anchor_right = 0.169835
+anchor_bottom = 1.0
+offset_right = 0.0559998
+mouse_filter = 2
+texture = ExtResource("3_sl8ej")
+expand_mode = 1
+stretch_mode = 5
+metadata/_edit_use_anchors_ = true
+
+[node name="Open" type="Button" parent="MarginContainer/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 140)
+layout_mode = 2
+theme = ExtResource("1_p3qp7")
+theme_override_colors/font_color = Color(0.854902, 1, 0.984314, 1)
+theme_override_font_sizes/font_size = 90
+theme_override_styles/normal = ExtResource("2_lntn7")
+theme_override_styles/hover = ExtResource("3_3a2hk")
+theme_override_styles/pressed = ExtResource("3_3a2hk")
+theme_override_styles/focus = ExtResource("3_3a2hk")
+text = "  Open"
+script = ExtResource("4_iyd62")
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/Buttons/Open"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.169835
+anchor_bottom = 0.985714
+offset_right = 0.0559998
+mouse_filter = 2
+texture = ExtResource("4_tp516")
+expand_mode = 1
+stretch_mode = 5
+metadata/_edit_use_anchors_ = true
+
+[node name="Cancel" type="Button" parent="MarginContainer/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 140)
+layout_mode = 2
+theme = ExtResource("1_p3qp7")
+theme_override_colors/font_color = Color(0.854902, 1, 0.984314, 1)
+theme_override_font_sizes/font_size = 90
+theme_override_styles/normal = ExtResource("2_lntn7")
+theme_override_styles/hover = ExtResource("3_3a2hk")
+theme_override_styles/pressed = ExtResource("3_3a2hk")
+theme_override_styles/focus = ExtResource("3_3a2hk")
+text = "  Cancel"
+script = ExtResource("4_iyd62")
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/Buttons/Cancel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.169835
+anchor_bottom = 1.0
+offset_right = 0.0559998
+mouse_filter = 2
+texture = ExtResource("5_uwh4c")
+expand_mode = 1
+stretch_mode = 5
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="MarginContainer/Buttons/Cancel" to="." method="_on_cancel_pressed"]

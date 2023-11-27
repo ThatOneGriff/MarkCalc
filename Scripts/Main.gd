@@ -9,7 +9,15 @@ var change_to_average: float
 
 
 
-func reset():
+# TODO: write it properly, so it sets stuff automatically no matter how many languages the app has.
+func _ready():
+	
+	if OS.get_locale() == "ru_RU":
+		%Language_Changer.change_language(0) # for example, this function could take more arguments, such as 'change_to': String
+
+
+
+func reset_mark_values():
 	
 	average = 0
 	mark_amount = 0
@@ -66,7 +74,7 @@ func _on_list_of_marks_mark_node_deleted(mark_value: int):
 	mark_amount -= 1
 	
 	if mark_amount == 0: # no marks left
-		reset()
+		reset_mark_values()
 	
 	else:
 		mark_sum -= mark_value

@@ -37,24 +37,12 @@ func _on_delete_all_pressed():
 	await get_tree().create_timer(.1).timeout # so everything happens while screen is whited out. WARNING: change it in case you change the time position of blink in the animation!!!!!!!
 	
 	reset_main_values.emit()
-	var deleted_mark_counter: int = 0
 	
 	for curr in get_children():
 		
-		if (curr is Panel):
-			deleted_mark_counter += 1
-			curr.queue_free()
-		elif (curr is Label):
-			deleted_mark_counter += curr.amount
-			curr.queue_free()
-	
-	if deleted_mark_counter == 0:
-		return
-	
-	var new_deleted_mark = deleted_mark.instantiate() as Label
-	new_deleted_mark.amount = deleted_mark_counter
-	add_child(new_deleted_mark)
-	move_child(new_deleted_mark, 1)
+		if ! (curr is Panel or curr is Label):
+			continue
+		curr.queue_free()
 
 
 

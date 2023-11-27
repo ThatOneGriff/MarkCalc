@@ -1,8 +1,8 @@
-[gd_scene load_steps=30 format=3 uid="uid://u65loiell050"]
+[gd_scene load_steps=29 format=3 uid="uid://u65loiell050"]
 
 [ext_resource type="Script" path="res://Scripts/Main.gd" id="1_id601"]
 [ext_resource type="Theme" uid="uid://drdpainjsputm" path="res://UI/Themes/Header.tres" id="2_iondv"]
-[ext_resource type="Texture2D" uid="uid://c25br6ot5ex6t" path="res://UI/Images/Icons/folder.png" id="3_0jkmr"]
+[ext_resource type="Texture2D" uid="uid://d2o4ycty6jvj6" path="res://UI/Images/Icons/save.png" id="3_y3cqe"]
 [ext_resource type="Theme" uid="uid://bw2rf37mivy1m" path="res://UI/Themes/Regular_Text.tres" id="4_3ihdi"]
 [ext_resource type="Texture2D" uid="uid://ddldk7xccydxy" path="res://UI/Images/Icons/trash_bin.png" id="4_erkmj"]
 [ext_resource type="StyleBox" uid="uid://dbfjn2ggsfrcc" path="res://UI/Themes/Keyboard_Button.tres" id="5_5rcqu"]
@@ -10,9 +10,8 @@
 [ext_resource type="Shader" path="res://Scripts/Round_Corners.gdshader" id="6_16fkp"]
 [ext_resource type="StyleBox" uid="uid://iasy8fnn1ilp" path="res://UI/Themes/Keyboard_Button_Pressed.tres" id="6_emm6i"]
 [ext_resource type="Script" path="res://Scripts/List_Of_Marks.gd" id="8_hyi5i"]
-[ext_resource type="Script" path="res://Scripts/Save_Button.gd" id="11_vyp5c"]
-[ext_resource type="Script" path="res://Scripts/Load_Button.gd" id="12_4nlkr"]
 [ext_resource type="Script" path="res://Scripts/Keyboard_Button.gd" id="12_5tuhd"]
+[ext_resource type="PackedScene" uid="uid://cgviwr8tstb37" path="res://Scenes/Save_Load_Menu.tscn" id="12_x7df8"]
 
 [sub_resource type="GDScript" id="GDScript_o2o82"]
 script/source = "extends Label
@@ -41,6 +40,16 @@ bg_color = Color(0.0901961, 0.419608, 0.529412, 1)
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
 
+[sub_resource type="GDScript" id="GDScript_82pg8"]
+script/source = "extends TextureButton
+
+
+func _on_pressed():
+	
+	%AnimationPlayer.play(\"Darken_Screen\")
+	%Screen_Cover/Tap_Detector/Save_Load_Menu.show()
+"
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tq404"]
 bg_color = Color(0.0156863, 0.211765, 0.290196, 1)
 corner_radius_bottom_right = 22
@@ -56,12 +65,15 @@ script/source = "extends TextureButton
 signal language_reset
 
 
-func _on_pressed():
+
+func change_language(play_animation: bool = true):
 	
 	Localizations.current_language_id += 1
-	%AnimationPlayer.play(\"Blink_Screen\")
 	
-	await get_tree().create_timer(.1).timeout # so everything changes while screen is covered. WARNING: change it in case you change the time position of blink in the animation!!!!!!!
+	if play_animation:
+		%AnimationPlayer.play(\"Blink_Screen\")
+		await get_tree().create_timer(.1).timeout # so everything changes while screen is covered. WARNING: change it in case you change the time position of blink in the animation!!!!!!!
+	
 	language_reset.emit()
 	texture_normal = load(Localizations.current_language.get(\"Flag_Path\"))
 "
@@ -70,13 +82,6 @@ func _on_pressed():
 bg_color = Color(0.0156863, 0.211765, 0.290196, 1)
 corner_radius_top_left = 32
 corner_radius_top_right = 32
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5pbmq"]
-bg_color = Color(0.854902, 1, 0.984314, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uv4ic"]
 
@@ -90,7 +95,7 @@ corner_radius_bottom_left = 2
 script/source = "extends Button
 
 
-func _on_pressed():
+func _on_pressed_or_cancelled():
 	
 	%AnimationPlayer.play(\"Undarken_Screen\")
 "
@@ -139,6 +144,20 @@ tracks/2/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Screen_Cover")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"show"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_ok1bn"]
 resource_name = "Darken_Screen"
@@ -182,7 +201,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.15),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 0), Color(0, 0, 0, 0.635294)]
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 0.635294)]
 }
 
 [sub_resource type="Animation" id="Animation_i0jr3"]
@@ -227,7 +246,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.15),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(0, 0, 0, 0.635294), Color(1, 1, 1, 0)]
+"values": [Color(0, 0, 0, 0.635294), Color(0, 0, 0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cfdp2"]
@@ -281,21 +300,19 @@ metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
 
 [node name="Save_Load" type="TextureButton" parent="Average"]
-visible = false
 modulate = Color(0.854902, 1, 0.984314, 1)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.023
-anchor_top = 0.218
-anchor_right = 0.116
+anchor_top = 0.219
 anchor_bottom = 1.0
-offset_left = 0.16
-offset_top = 0.0961399
-offset_right = -0.280006
-offset_bottom = 0.000640869
-texture_normal = ExtResource("3_0jkmr")
-ignore_texture_size = true
+offset_left = 36.0
+offset_top = -6.03186
+offset_right = 144.0
+offset_bottom = 6.00064
+grow_vertical = 2
+texture_normal = ExtResource("3_y3cqe")
 stretch_mode = 5
+script = SubResource("GDScript_82pg8")
 
 [node name="Average_Mark" type="Label" parent="Average"]
 layout_mode = 1
@@ -312,19 +329,20 @@ theme_override_font_sizes/font_size = 77
 text = "Average mark: -"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="Delete_All" type="TextureButton" parent="Average"]
 modulate = Color(0.854902, 1, 0.984314, 1)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.863407
+anchor_left = 1.0
 anchor_top = 0.218375
-anchor_right = 0.977408
-anchor_bottom = 0.968816
-offset_left = -0.480042
+anchor_right = 1.0
+anchor_bottom = 0.969
+offset_left = -120.0
 offset_top = 0.0481491
-offset_right = 0.399902
-offset_bottom = -0.00784302
+offset_right = -24.0
+offset_bottom = -0.0313873
 grow_horizontal = 0
 texture_normal = ExtResource("4_erkmj")
 ignore_texture_size = true
@@ -353,8 +371,10 @@ theme_override_font_sizes/font_size = 90
 text = "MarkCalc"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="Language_Changer" type="TextureButton" parent="Header"]
+unique_name_in_owner = true
 material = SubResource("ShaderMaterial_csj45")
 layout_mode = 1
 anchors_preset = -1
@@ -378,11 +398,11 @@ anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.116
 anchor_right = 0.5
-anchor_bottom = 0.873
+anchor_bottom = 0.936
 offset_left = -540.0
 offset_top = 0.279999
 offset_right = 540.0
-offset_bottom = -0.160034
+offset_bottom = 0.879883
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 50
@@ -410,7 +430,7 @@ metadata/_edit_lock_ = true
 
 [node name="Footer" type="Panel" parent="."]
 anchors_preset = -1
-anchor_top = 0.873438
+anchor_top = 0.936458
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
@@ -423,7 +443,7 @@ layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
+anchor_bottom = 1.0
 offset_left = -540.0
 offset_right = 540.0
 grow_horizontal = 2
@@ -442,6 +462,7 @@ metadata/_edit_lock_ = true
 custom_minimum_size = Vector2(253, 0)
 layout_mode = 2
 theme = ExtResource("4_3ihdi")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 90
 theme_override_styles/normal = ExtResource("5_5rcqu")
 theme_override_styles/hover = ExtResource("6_emm6i")
@@ -454,6 +475,7 @@ script = ExtResource("12_5tuhd")
 custom_minimum_size = Vector2(253, 0)
 layout_mode = 2
 theme = ExtResource("4_3ihdi")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 90
 theme_override_styles/normal = ExtResource("5_5rcqu")
 theme_override_styles/hover = ExtResource("6_emm6i")
@@ -466,6 +488,7 @@ script = ExtResource("12_5tuhd")
 custom_minimum_size = Vector2(253, 0)
 layout_mode = 2
 theme = ExtResource("4_3ihdi")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 90
 theme_override_styles/normal = ExtResource("5_5rcqu")
 theme_override_styles/hover = ExtResource("6_emm6i")
@@ -478,6 +501,7 @@ script = ExtResource("12_5tuhd")
 custom_minimum_size = Vector2(253, 0)
 layout_mode = 2
 theme = ExtResource("4_3ihdi")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 90
 theme_override_styles/normal = ExtResource("5_5rcqu")
 theme_override_styles/hover = ExtResource("6_emm6i")
@@ -486,68 +510,8 @@ theme_override_styles/focus = ExtResource("6_emm6i")
 text = "2"
 script = ExtResource("12_5tuhd")
 
-[node name="Divider" type="Panel" parent="Footer"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.493827
-anchor_right = 0.5
-anchor_bottom = 0.51
-offset_left = -530.0
-offset_right = 530.0
-offset_bottom = 0.0699844
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_5pbmq")
-metadata/_edit_lock_ = true
-
-[node name="Save_Load" type="MarginContainer" parent="Footer"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -540.0
-offset_right = 540.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-metadata/_edit_use_anchors_ = true
-
-[node name="Buttons" type="HBoxContainer" parent="Footer/Save_Load"]
-layout_mode = 2
-theme_override_constants/separation = 16
-metadata/_edit_lock_ = true
-
-[node name="Save" type="Button" parent="Footer/Save_Load/Buttons"]
-custom_minimum_size = Vector2(522, 0)
-layout_mode = 2
-theme = ExtResource("4_3ihdi")
-theme_override_font_sizes/font_size = 77
-theme_override_styles/normal = ExtResource("5_5rcqu")
-theme_override_styles/hover = ExtResource("6_emm6i")
-theme_override_styles/pressed = ExtResource("6_emm6i")
-theme_override_styles/focus = ExtResource("6_emm6i")
-text = "Save"
-script = ExtResource("11_vyp5c")
-
-[node name="Load" type="Button" parent="Footer/Save_Load/Buttons"]
-custom_minimum_size = Vector2(522, 0)
-layout_mode = 2
-theme = ExtResource("4_3ihdi")
-theme_override_font_sizes/font_size = 77
-theme_override_styles/normal = ExtResource("5_5rcqu")
-theme_override_styles/hover = ExtResource("6_emm6i")
-theme_override_styles/pressed = ExtResource("6_emm6i")
-theme_override_styles/focus = ExtResource("6_emm6i")
-text = "Load"
-script = ExtResource("12_4nlkr")
-
 [node name="Screen_Cover" type="ColorRect" parent="."]
+unique_name_in_owner = true
 visible = false
 anchors_preset = 15
 anchor_right = 1.0
@@ -570,25 +534,36 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_mbe6q")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_r5j2i")
 script = SubResource("GDScript_ghwu3")
 
+[node name="Save_Load_Menu" parent="Screen_Cover/Tap_Detector" instance=ExtResource("12_x7df8")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -432.0
+offset_top = -240.0
+offset_right = 432.0
+offset_bottom = 240.0
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_cfdp2")
 }
 
+[connection signal="pressed" from="Average/Save_Load" to="Average/Save_Load" method="_on_pressed"]
 [connection signal="pressed" from="Average/Delete_All" to="MarginContainer/Marks_Screen/List_Of_Marks" method="_on_delete_all_pressed"]
 [connection signal="language_reset" from="Header/Language_Changer" to="." method="_on_language_reset"]
 [connection signal="language_reset" from="Header/Language_Changer" to="New_Old" method="_on_language_reset"]
 [connection signal="language_reset" from="Header/Language_Changer" to="MarginContainer/Marks_Screen/List_Of_Marks" method="_on_language_reset"]
-[connection signal="pressed" from="Header/Language_Changer" to="Header/Language_Changer" method="_on_pressed"]
+[connection signal="language_reset" from="Header/Language_Changer" to="Screen_Cover/Tap_Detector/Save_Load_Menu" method="_on_language_reset"]
+[connection signal="pressed" from="Header/Language_Changer" to="Header/Language_Changer" method="change_language"]
 [connection signal="mark_node_deleted" from="MarginContainer/Marks_Screen/List_Of_Marks" to="." method="_on_list_of_marks_mark_node_deleted"]
-[connection signal="reset_main_values" from="MarginContainer/Marks_Screen/List_Of_Marks" to="." method="reset"]
+[connection signal="reset_main_values" from="MarginContainer/Marks_Screen/List_Of_Marks" to="." method="reset_mark_values"]
 [connection signal="keyboard_pressed" from="Footer/Keyboard/Buttons/5" to="." method="_on_keyboard_pressed"]
 [connection signal="keyboard_pressed" from="Footer/Keyboard/Buttons/4" to="." method="_on_keyboard_pressed"]
 [connection signal="keyboard_pressed" from="Footer/Keyboard/Buttons/3" to="." method="_on_keyboard_pressed"]
 [connection signal="keyboard_pressed" from="Footer/Keyboard/Buttons/2" to="." method="_on_keyboard_pressed"]
-[connection signal="button_up" from="Footer/Save_Load/Buttons/Save" to="Footer/Save_Load/Buttons/Save" method="_on_unpressed"]
-[connection signal="pressed" from="Footer/Save_Load/Buttons/Save" to="Footer/Save_Load/Buttons/Save" method="_on_pressed"]
-[connection signal="button_up" from="Footer/Save_Load/Buttons/Load" to="Footer/Save_Load/Buttons/Load" method="_on_unpressed"]
-[connection signal="pressed" from="Footer/Save_Load/Buttons/Load" to="Footer/Save_Load/Buttons/Load" method="_on_pressed"]
-[connection signal="pressed" from="Screen_Cover/Tap_Detector" to="Screen_Cover/Tap_Detector" method="_on_pressed"]
+[connection signal="pressed" from="Screen_Cover/Tap_Detector" to="Screen_Cover/Tap_Detector" method="_on_pressed_or_cancelled"]
+[connection signal="cancel" from="Screen_Cover/Tap_Detector/Save_Load_Menu" to="Screen_Cover/Tap_Detector" method="_on_pressed_or_cancelled"]

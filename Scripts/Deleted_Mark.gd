@@ -33,13 +33,13 @@ func localize_text():
 	
 	text = "= " + str(amount)
 	
-	if Localizations.current_language.get("Tag") == "EN":
+	if Localizations.current_language.get("Tag") == "en_EN":
 		if amount == 1:
 			text += " mark deleted ="
 		else:
 			text += " marks deleted ="
 	
-	elif Localizations.current_language.get("Tag") == "RU":
+	elif Localizations.current_language.get("Tag") == "ru_RU":
 		if (amount % 100 >= 11 and amount % 100 <= 19) or (amount % 10 >= 5 or amount % 10 == 0):
 			text += " оценок удалено ="
 		elif amount % 10 == 1:
