@@ -51,7 +51,7 @@ func _on_language_reset():
 	for curr in get_children():
 		if ! (curr is Label):
 			continue
-		curr.localize_text()
+		curr.text = Localizations.get_localized_deleted_mark_text(curr.amount)
 
 
 ####### SUBFUNCTIONS #######
